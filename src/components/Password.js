@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addPassword } from "../features/passwords/passwordsSlice";
 
 export default function Password() {
-  const [password, setPassword] = useState("p@$$w0rd");
-  const [passwordLabel, setPasswordLabel] = useState("My Password");
-  const [passwordLength, setPasswordLength] = useState("My Password");
+  const dispatch = useDispatch();
+
+  const [password, setPassword] = useState("");
+  const [passwordLabel, setPasswordLabel] = useState("");
+  const [passwordLength, setPasswordLength] = useState(8);
 
   function generatePassword() {
     // generate a password here
@@ -48,6 +52,13 @@ export default function Password() {
           }}
         >
           Generate
+        </button>
+        <button
+          onClick={() =>
+            dispatch(addPassword({ password, name: passwordLabel }))
+          }
+        >
+          Save
         </button>
       </div>
     </div>
