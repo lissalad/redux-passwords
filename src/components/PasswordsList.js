@@ -5,10 +5,11 @@ export default function PasswordsList() {
   console.log(passwords);
 
   return (
-    <ul>
+    <ul id="password-collection">
       {passwords.map((password, i) => (
         <li key={`${i}-item`} className="password-item">
-          {password.password}
+          <p>{password.name}</p>
+          <p>{password.password}</p>
         </li>
       ))}
     </ul>

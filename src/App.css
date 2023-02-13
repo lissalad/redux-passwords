@@ -1,4 +1,62 @@
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.App {
+  max-width: 700px;
+}
+
+
+#password-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 200px;
+}
+
+#password-collection {
+  background-color: steelblue;
+  color:#f0f8ff;
+  list-style-type: none;
+  border-top: 4px solid rgb(27, 74, 114);
+  padding: 0;
+}
+
 .password-item {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  border: 4px solid rgb(27, 74, 114);
+  border-top: none;
+  padding: .2em 2em;
+}
+
+.terrible, .weak, .okay, .safe, .secure {
+  padding: 5px 10px;
+  text-align: left;
+}
+
+.terrible {
+  background-color: rgba(255, 99, 71, 0.696);
+  width: 50px;
+}
+
+.weak {
+  background-color: rgba(255, 166, 0, 0.691);
+  width: 70px;
+}
+
+.okay {
+  background-color: rgba(255, 255, 0, 0.689);
+  width: 90px;
+}
+
+.safe {
+  background-color: rgba(172, 255, 47, 0.696);
+  width: 110px;
+}
+
+.secure {
+  background-color: rgba(0, 128, 0, 0.619);
+  width: 130px;
 }

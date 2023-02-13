@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addPassword } from "../features/passwords/passwordsSlice";
+import zxcvbn from "zxcvbn";
+import PasswordStrength from "./PasswordStrength";
 
 export default function Password() {
   const dispatch = useDispatch();
@@ -8,6 +10,7 @@ export default function Password() {
   const [password, setPassword] = useState("");
   const [passwordLabel, setPasswordLabel] = useState("");
   const [passwordLength, setPasswordLength] = useState(8);
+  const [passwordStrengthScore, setPasswordStrengthScore] = useState();
 
   function generatePassword() {
     // generate a password here
@@ -24,35 +27,58 @@ export default function Password() {
     return String.fromCharCode(charCode);
   }
 
-  return (
-    <div>
-      <input
-        type="text"
-        onChange={(e) => setPasswordLabel(e.target.value)}
-        value={passwordLabel}
-      />
-      <input
-        type="text"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-      />
-      <input
-        type="range"
-        min="1"
-        max="128"
-        value={passwordLength}
-        onChange={(e) => setPasswordLength(e.target.value)}
-        id="myRange"
-      />
+  function evaluateStrength() {
+    // console.log(zxcvbn(password).score);
+    setPasswordStrengthScore(zxcvbn(password).score);
+  }
 
-      <div>
+  return (
+    <div id="password-form">
+      <label>
+        Name:
+        <input
+          type="text"
+          onChange={(e) => setPasswordLabel(e.target.value)}
+          value={passwordLabel}
+        />
+      </label>
+
+      <div className="password-field">
+        <label>
+          Password:
+          <input
+            type="text"
+            placeholder="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+              evaluateStrength();
+            }}
+            value={password}
+          />
+        </label>
         <button
           onClick={(e) => {
             generatePassword();
+            evaluateStrength();
           }}
         >
           Generate
         </button>
+        <div>
+          <p>Length: {passwordLength}</p>
+          <input
+            type="range"
+            min="1"
+            max="128"
+            value={passwordLength}
+            onChange={(e) => setPasswordLength(e.target.value)}
+            id="myRange"
+          />
+        </div>
+        {/* <button onClick={() => evaluateStrength()}>Evaluate Strength</button> */}
+      </div>
+      <PasswordStrength score={passwordStrengthScore} />
+      <div>
         <button
           onClick={() =>
             dispatch(addPassword({ password, name: passwordLabel }))
