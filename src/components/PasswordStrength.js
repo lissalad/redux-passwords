@@ -1,6 +1,6 @@
 export default function PasswordStrength(props) {
   // console.log(props.score);
-  let barStyle = "";
+  let barStyle = "strength";
   switch (props.score) {
     case 0:
       barStyle = "terrible";

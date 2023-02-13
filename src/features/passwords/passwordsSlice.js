@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"; // 1
 
 // 2
 const initialState = {
-  value: [{ password: "hello", name: "test" }],
+  value: [],
 };
 
 // 3 Add the password slice

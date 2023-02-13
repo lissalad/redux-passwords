@@ -33,22 +33,23 @@ export default function Password() {
   }
 
   return (
-    <div id="password-form">
-      <label>
-        Name:
-        <input
-          type="text"
-          onChange={(e) => setPasswordLabel(e.target.value)}
-          value={passwordLabel}
-        />
-      </label>
-
-      <div className="password-field">
+    <div className="form">
+      <div id="inputs">
+        <label>
+          Name:
+          <input
+            type="text"
+            onChange={(e) => setPasswordLabel(e.target.value)}
+            value={passwordLabel}
+            placeholder="enter name"
+            required
+          />
+        </label>
         <label>
           Password:
           <input
             type="text"
-            placeholder="password"
+            placeholder="enter password"
             onChange={(e) => {
               setPassword(e.target.value);
               evaluateStrength();
@@ -57,34 +58,37 @@ export default function Password() {
           />
         </label>
         <button
-          onClick={(e) => {
-            generatePassword();
-            evaluateStrength();
-          }}
-        >
-          Generate
-        </button>
-        <div>
-          <p>Length: {passwordLength}</p>
-          <input
-            type="range"
-            min="1"
-            max="128"
-            value={passwordLength}
-            onChange={(e) => setPasswordLength(e.target.value)}
-            id="myRange"
-          />
-        </div>
-        {/* <button onClick={() => evaluateStrength()}>Evaluate Strength</button> */}
-      </div>
-      <PasswordStrength score={passwordStrengthScore} />
-      <div>
-        <button
           onClick={() =>
             dispatch(addPassword({ password, name: passwordLabel }))
           }
         >
           Save
+        </button>
+      </div>
+
+      <div className="password-generation">
+        <PasswordStrength score={passwordStrengthScore} />
+
+        <div className="length">
+          <label>
+            Length: {passwordLength}
+            <input
+              type="range"
+              min="1"
+              max="128"
+              value={passwordLength}
+              onChange={(e) => setPasswordLength(e.target.value)}
+              id="myRange"
+            />
+          </label>
+        </div>
+        <button
+          onClick={(e) => {
+            generatePassword();
+            evaluateStrength();
+          }}
+        >
+          Generate Password
         </button>
       </div>
     </div>
